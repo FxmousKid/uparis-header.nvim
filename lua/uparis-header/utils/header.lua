@@ -87,6 +87,10 @@ function M.gen_header()
     M.gen_line("", ascii[5]),
     M.gen_line("Created: " .. date .. " by " .. M.user(), ascii[6]),
     M.gen_line("Updated: " .. date .. " by " .. M.user(), ascii[7]),
+    M.gen_line("", ascii[8]),
+    M.gen_line("", ascii[9]),
+    M.gen_line("", ascii[10]),
+    M.gen_line("", ascii[11]),
     empty_line,
     fill_line,
   }
