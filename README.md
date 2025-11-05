@@ -1,17 +1,24 @@
-<h1 align="center">🛸 42 Header</h1>
+<a href="https://u-paris.fr/">
+  <img src="./.github/assets/uparis-banner.jpg" align="left" width="120" mar/>
+</a>
+<br>
+<h1 align="center"> UParis Header</h1>
+<br>
 
-This plugin is whole re-write of [42header](https://github.com/42Paris/42header) in Lua.
+Forked from [Diogo Silva's 42-header.nvim](https://github.com/Diogo-ss/42-header.nvim).  
+
+<hr>
 
 ## ✨ Features
 
-- Command: `Stdheader`
+- Command: `UPheader`
 - Auto update on save (optional)
 - Supports `commentstring`
 - Supports Git
 
 ## 🚀 Showcase
 
-![header](https://raw.githubusercontent.com/Diogo-ss/42-header.nvim/7528c7ff25c51bf32301dfc1ece995128d2ae7d5/.github/header_img.png)
+![header](./.github/assets/showcase.png)
 
 ## 🎈 Setup
 
@@ -20,10 +27,10 @@ This plugin is whole re-write of [42header](https://github.com/42Paris/42header)
 
 ```lua
 use {
-  "Diogo-ss/42-header.nvim",
-  cmd = { "Stdheader" },
+  "fxmouskid/uparis-header.nvim",
+  cmd = { "UPheader" },
   config = function()
-    require("42header").setup {
+    require("uparis-header").setup {
       default_map = true, -- Default mapping <F1> in normal mode.
       auto_update = true, -- Update header when saving.
       user = "username", -- Your user.
@@ -41,8 +48,8 @@ use {
 
 ```lua
 {
-  "Diogo-ss/42-header.nvim",
-  cmd = { "Stdheader" },
+  "fxmouskid/uparis-header.nvim",
+  cmd = { "UPheader" },
   keys = { "<F1>" },
   opts = {
     default_map = true, -- Default mapping <F1> in normal mode.
@@ -52,7 +59,7 @@ use {
     -- add other options.
   },
   config = function(_, opts)
-    require("42header").setup(opts)
+    require("uparis-header").setup(opts)
   end,
 }
 ```
@@ -89,15 +96,3 @@ use {
     email_global = true,
   },
 }
-```
-
-## 🌐 User and Mail
-
-`user` and `mail` can be defined using global variables.
-
-```lua
-vim.g.user = "username"
-vim.g.mail = "your@mail.com"
-```
-
-> **_NOTE:_** The order of priority: `global variables` > `git config (if support enabled)` > `user config`.
