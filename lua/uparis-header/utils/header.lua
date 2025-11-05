@@ -1,4 +1,4 @@
----@tag 42header.header
+---@tag uparis-header.header
 
 ---@brief [[
 ---
@@ -7,8 +7,8 @@
 ---@brief ]]
 
 local M = {}
-local config = require "42header.config"
-local git = require "42header.utils.git"
+local config = require "uparis-header.config"
+local git = require "uparis-header.utils.git"
 
 ---Get username.
 ---@return string|nil
@@ -108,7 +108,7 @@ end
 ---@param header table: The header to insert.
 function M.insert_header(header)
   if not vim.api.nvim_buf_get_option(0, "modifiable") then
-    vim.notify("The current buffer cannot be modified.", vim.log.levels.WARN, { title = "42 Header" })
+    vim.notify("The current buffer cannot be modified.", vim.log.levels.WARN, { title = "UParis Header" })
     return
   end
   -- If the first line is not empty, the blank line will be added after the header.

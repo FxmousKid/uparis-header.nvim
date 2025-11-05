@@ -1,4 +1,4 @@
----@tag 42header.git
+---@tag uparis-header.git
 
 ---@brief [[
 ---
@@ -6,7 +6,7 @@
 ---
 ---@brief ]]
 
-local config = require "42header.config"
+local config = require "uparis-header.config"
 
 local M = {}
 
