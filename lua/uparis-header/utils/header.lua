@@ -71,39 +71,55 @@ end
 ---Generate a complete header.
 ---@return table: A table ontaining all lines of header.
 function M.gen_header()
-  local ascii = config.opts.asciiart
+  local ascii = config.opts.asciiart or {}
   local left, right = M.comment_symbols()
   local fill_line = left .. " " .. string.rep("*", config.opts.length - #left - #right - 2) .. " " .. right
   local empty_line = M.gen_line("", "")
   local date = os.date "%Y/%m/%d %H:%M:%S"
 
-  return {
+  local header = {
     fill_line,
     empty_line,
-    M.gen_line("", ascii[1]),
-    M.gen_line(vim.fn.expand "%:t", ascii[2]),
-    M.gen_line("", ascii[3]),
-    M.gen_line("By: " .. M.user() .. " <" .. M.email() .. ">", ascii[4]),
-    M.gen_line("", ascii[5]),
-    M.gen_line("Created: " .. date .. " by " .. M.user(), ascii[6]),
-    M.gen_line("Updated: " .. date .. " by " .. M.user(), ascii[7]),
-    M.gen_line("", ascii[8]),
-    M.gen_line("", ascii[9]),
-    M.gen_line("", ascii[10]),
-    M.gen_line("", ascii[11]),
-    empty_line,
-    fill_line,
   }
+
+  local text_map = {
+    [1] = "",
+    [2] = vim.fn.expand "%:t",
+    [3] = "",
+    [4] = "By: " .. M.user() .. " <" .. M.email() .. ">",
+    [5] = "",
+    [6] = "Created: " .. date .. " by " .. M.user(),
+    [7] = "Updated: " .. date .. " by " .. M.user(),
+  }
+
+  local max_idx = math.max(#ascii, #text_map)
+
+  for idx = 1, max_idx do
+    header[#header + 1] = M.gen_line(text_map[idx] or "", ascii[idx] or "")
+  end
+
+  header[#header + 1] = empty_line
+  header[#header + 1] = fill_line
+
+  return header
 end
 
 ---Checks if there is a valid header in the current buffer.
 ---@param header table: The header to compare with the contents of the existing buffer.
 ---@return boolean: `true` if the header exists, `false` otherwise.
 function M.has_header(header)
-  local lines = vim.api.nvim_buf_get_lines(0, 0, 11, false)
+  if vim.api.nvim_buf_line_count(0) < #header then
+    return false
+  end
+
+  local lines = vim.api.nvim_buf_get_lines(0, 0, #header, false)
+  if #lines < #header then
+    return false
+  end
 
   -- Immutable lines that are used for checking.
-  for _, v in pairs { 1, 2, 3, 10, 11 } do
+  local checks = { 1, 2, 3, #header - 1, #header }
+  for _, v in pairs(checks) do
     if header[v] ~= lines[v] then
       return false
     end
@@ -134,10 +150,12 @@ function M.update_header(header)
 
   -- Copies immutable lines from existing header to updated header.
   for _, value in ipairs(immutable) do
-    header[value] = vim.api.nvim_buf_get_lines(0, value - 1, value, false)[1]
+    if header[value] then
+      header[value] = vim.api.nvim_buf_get_lines(0, value - 1, value, false)[1]
+    end
   end
 
-  vim.api.nvim_buf_set_lines(0, 0, 16, false, header)
+  vim.api.nvim_buf_set_lines(0, 0, #header, false, header)
 end
 
 ---Inserts or updates the header in the current buffer.
