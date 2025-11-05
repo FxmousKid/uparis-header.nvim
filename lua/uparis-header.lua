@@ -7,7 +7,7 @@ function M.setup(opts)
   local custom = vim.api.nvim_create_augroup("custom_header_group", {})
 
   config.set(opts)
-  vim.api.nvim_create_user_command("up-header", utils.stdheader, {})
+  vim.api.nvim_create_user_command("UPheader", utils.stdheader, {})
 
   if config.opts.auto_update == true then
     vim.api.nvim_create_autocmd("BufWritePre", {
