@@ -5,7 +5,7 @@
 <h1 align="center"> UParis Header</h1>
 <br>
 
-Forked from [Diogo Silva's 42-header.nvim](https://github.com/Diogo-ss/42-header.nvim).  
+Forked and quasi-inspired from [Diogo Silva's 42-header.nvim](https://github.com/Diogo-ss/42-header.nvim).  
 
 <hr>
 
