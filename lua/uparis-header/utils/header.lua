@@ -86,10 +86,14 @@ function M.gen_header()
     [1] = "",
     [2] = vim.fn.expand "%:t",
     [3] = "",
-    [4] = "By: " .. M.user() .. " <" .. M.email() .. ">",
-    [5] = "",
-    [6] = "Created: " .. date .. " by " .. M.user(),
-    [7] = "Updated: " .. date .. " by " .. M.user(),
+    [4] = "By: " .. M.user(),
+    [5] = "    <" .. M.email() ,
+    [6] = "",
+    [7] = "",
+    [8] = "",
+    [9] = "",
+    [10] = "Created: " .. date .. " by " .. M.user(),
+    [11] = "Updated: " .. date .. " by " .. M.user(),
   }
 
   local max_idx = math.max(#ascii, #text_map)
