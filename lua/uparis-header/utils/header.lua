@@ -90,10 +90,8 @@ function M.gen_header()
     [5] = "    <" .. M.email() ,
     [6] = "",
     [7] = "",
-    [8] = "",
-    [9] = "",
-    [10] = "Created: " .. date .. " by " .. M.user(),
-    [11] = "Updated: " .. date .. " by " .. M.user(),
+    [8] = "Created: " .. date .. " by " .. M.user(),
+    [9] = "Updated: " .. date .. " by " .. M.user(),
   }
 
   local max_idx = math.max(#ascii, #text_map)
