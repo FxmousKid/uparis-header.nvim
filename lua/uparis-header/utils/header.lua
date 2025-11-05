@@ -8,18 +8,22 @@
 
 local M = {}
 local config = require "uparis-header.config"
-local git = require "uparis-header.utils.git"
+-- local git = require "uparis-header.utils.git"
 
 ---Get username.
 ---@return string|nil
 function M.user()
-  return vim.g.user or (config.opts.git.enabled and git.user()) or config.opts.user
+  -- return vim.g.user or (config.opts.git.enabled and git.user()) or config.opts.user
+  -- not using vim.g.user because it conflicts with 42header plugin
+  return config.opts.user
 end
 
 ---Get email.
 ---@return string|nil
 function M.email()
-  return vim.g.mail or (config.opts.git.enabled and git.email()) or config.opts.mail
+  -- return vim.g.mail or (config.opts.git.enabled and git.email()) or config.opts.mail
+  -- not using vim.g.email because it conflicts with 42header plugin
+  return config.opts.mail
 end
 
 ---Get left and right comment symbols from the buffer.
@@ -27,7 +31,7 @@ end
 function M.comment_symbols()
   local str = vim.api.nvim_buf_get_option(0, "commentstring")
 
-  if vim.tbl_contains({ "c", "cc", "cpp", "cxx", "tpp" }, vim.bo.filetype) then
+  if vim.tbl_contains({ "c", "cc", "cpp", "cxx", "tpp", "h" }, vim.bo.filetype) then
     str = "/* %s */"
   elseif vim.bo.filetype == "openscad" then
     str = "// %s #"
@@ -129,7 +133,7 @@ function M.update_header(header)
     header[value] = vim.api.nvim_buf_get_lines(0, value - 1, value, false)[1]
   end
 
-  vim.api.nvim_buf_set_lines(0, 0, 11, false, header)
+  vim.api.nvim_buf_set_lines(0, 0, 16, false, header)
 end
 
 ---Inserts or updates the header in the current buffer.
